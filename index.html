@@ -75,13 +75,9 @@
                 font_style: document.getElementById('fontStyle').value,
                 content: document.getElementById('content').value,
                 topics: [{header: "Kirish", content: document.getElementById('content').value}]
-            };
-
-            fetch('https://YOUR_SERVER_URL/api/generate', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(payload)
-            }).then(() => {
+            }; 
+    fetchwindow.Telegram.WebApp.sendData(JSON.stringify(data))   
+         }) .then(() => {
                 tg.close();
             }).catch(err => {
                 alert("Xatolik yuz berdi: " + err);
