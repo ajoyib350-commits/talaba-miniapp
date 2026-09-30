@@ -66,35 +66,26 @@
             document.getElementById('fontSection').style.display = (type === 'hand') ? 'block' : 'none';
         }
 
-        const tg = window.Telegram.WebApp;
+        function sendData() {
+            // HTML elementlaridan to'g'ri ID orqali qiymatlarni olish
+            const docType = document.getElementById('docType').value;
+            const titleText = document.getElementById('title').value;
+            const contentText = document.getElementById('content').value;
+            const studentText = document.getElementById('student').value;
+            const fontStyle = document.getElementById('fontStyle').value;
 
-function sendData() {
-    // Formadan qiymatlarni olish
-    const docType = document.getElementById('doc_type').value; // slayd, referat yoki hand
-    const titleText = document.getElementById('title').value;
-    const contentText = document.getElementById('content').value;
-    const studentText = document.getElementById('student') ? document.getElementById('student').value : '';
-    const fontStyle = document.getElementById('font_style') ? document.getElementById('font_style').value : 'hand_1';
+            // Python kodi kutayotgan aniq obyekt strukturasi
+            const payload = {
+                doc_type: docType,
+                title: titleText,
+                content: contentText,
+                student: studentText,
+                font_style: fontStyle
+            };
 
-    // Python kodi kutayotgan aniq format
-    const payload = {
-        doc_type: docType,
-        title: titleText,
-        content: contentText,
-        student: studentText,
-        font_style: fontStyle
-    };
-
-    // Telegram chatiga yuborish va Mini App'ni yopish
-    tg.sendData(JSON.stringify(payload));
-    tg.close();
-    }; 
-    fetchwindow.Telegram.WebApp.sendData(JSON.stringify(data))   
-         }) .then(() => {
-                tg.close();
-            }).catch(err => {
-                alert("Xatolik yuz berdi: " + err);
-            });
+            // Telegram chatiga ma'lumot yuborish va Mini App'ni yopish
+            tg.sendData(JSON.stringify(payload));
+            tg.close();
         }
     </script>
 </body>
