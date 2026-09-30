@@ -66,16 +66,29 @@
             document.getElementById('fontSection').style.display = (type === 'hand') ? 'block' : 'none';
         }
 
-        function sendData() {
-            const payload = {
-                user_id: tg.initDataUnsafe?.user?.id || 123456,
-                doc_type: document.getElementById('docType').value,
-                title: document.getElementById('title').value,
-                student: document.getElementById('student').value,
-                font_style: document.getElementById('fontStyle').value,
-                content: document.getElementById('content').value,
-                topics: [{header: "Kirish", content: document.getElementById('content').value}]
-            }; 
+        const tg = window.Telegram.WebApp;
+
+function sendData() {
+    // Formadan qiymatlarni olish
+    const docType = document.getElementById('doc_type').value; // slayd, referat yoki hand
+    const titleText = document.getElementById('title').value;
+    const contentText = document.getElementById('content').value;
+    const studentText = document.getElementById('student') ? document.getElementById('student').value : '';
+    const fontStyle = document.getElementById('font_style') ? document.getElementById('font_style').value : 'hand_1';
+
+    // Python kodi kutayotgan aniq format
+    const payload = {
+        doc_type: docType,
+        title: titleText,
+        content: contentText,
+        student: studentText,
+        font_style: fontStyle
+    };
+
+    // Telegram chatiga yuborish va Mini App'ni yopish
+    tg.sendData(JSON.stringify(payload));
+    tg.close();
+    }; 
     fetchwindow.Telegram.WebApp.sendData(JSON.stringify(data))   
          }) .then(() => {
                 tg.close();
